@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app ng-csp>
+<head>
+    <meta charset="utf-8">
+    <title>Auto XML Generator</title>
+    <script src="angular.min.js"></script>
+    <script src="jquery-1.10.2.min.js"></script>
+    <script src="controller.js"></script>
+    <link rel="stylesheet" type="text/css" href="angular-csp.css">
+</head>
+<body ng-controller="MainController">
+	<input type="text" ng-model="searchResultUrl" size="30"/>
+	<input type="button" ng-click="getHTMLData()" value="更新"/>
+	<input type="button" ng-click="generateXML()" value="生成XML"/>
+	<input type="button" ng-click="toggleSetting() || save()" value="设置"/>
+	<input type="button" ng-click="hideWindow()" value="隐藏"/>
+	<table ng-show="settingShow">
+		<tbody>
+			<tr>
+				<th>时间</th><td><input type="text" ng-model="animeFilters.time" ng-required="true" ng-pattern="/^[0-9]{1,2}$/"/></td>
+			</tr>
+			<tr>
+				<th>动画</th>
+				<td>
+					<table>
+						<tbody>
+							<tr ng-repeat="rule in animeFilters.rules track by $index">
+								<td><input type="text" ng-model="animeFilters.rules[$index]" placeholder="正则表达式"/></td>
+								<td><input type="button" ng-click="deleteRule($index)" value="删除"/></td>
+							</tr>
+							<tr>
+								<td><input type="button" ng-click="addRule()" value="新建"/></td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<tbody>
+			<tr ng-repeat="anime in animes">
+				<td>{{anime.publishTime}}</td>
+				<td>{{anime.title}}</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

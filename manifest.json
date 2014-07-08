@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+  "name": "MyAnimeTools",
+  "version": "1",
+  "permissions": [{"fileSystem": ["write", "retainEntries"]}, "http://*/", "storage", "notifications"],
+  "app": {
+    "background": {
+      "scripts": ["main.js"]
+    }
+  },
+  "minimum_chrome_version": "23",
+  "icons": { "16": "ic_launcher.png", "128": "ic_launcher.png" }
+}
