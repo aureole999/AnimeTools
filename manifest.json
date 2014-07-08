@@ -5,9 +5,24 @@
   "permissions": [{"fileSystem": ["write", "retainEntries"]}, "http://*/", "storage", "notifications"],
   "app": {
     "background": {
-      "scripts": ["main.js"]
+      "scripts": ["jquery-1.11.1.js", "main.js"],
+	  "persistent": false
     }
   },
   "minimum_chrome_version": "23",
-  "icons": { "16": "ic_launcher.png", "128": "ic_launcher.png" }
+  "icons": { "16": "ic_launcher.png", "128": "ic_launcher.png" },
+  "commands": {
+    "show-main-window": {
+	  "suggested_key": {
+	    "default": "Ctrl+Shift+1"
+	  },
+	  "description": "显示窗口"
+	},
+    "update-anime-list": {
+	  "suggested_key": {
+	    "default": "Ctrl+Shift+2"
+	  },
+	  "description": "更新列表"
+	}	
+  }
 }
