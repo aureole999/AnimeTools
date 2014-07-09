@@ -15,11 +15,11 @@
 		.no-border-table>tbody>tr>th, .no-border-table>tbody>tr>td {
 			border-top: none;
 		}
-		.setting-table th {
-			width: 60px;
+		.no-border-table {
+			padding: 0;
 		}
-		.table-anime-list th {
-			
+		.no-padding {
+			padding: 0 !important;
 		}
 	</style>
 	
@@ -36,23 +36,28 @@
 			<input class="btn btn-default btn-sm" type="button" ng-click="toggleSetting() || save()" value="设置"/>
 		</div>
 	</div>
-	<table class="table setting-table" ng-show="settingShow">
+	<table class="table table-condensed" ng-show="settingShow">
 		<tbody>
 			<tr>
-				<th>时间</th>
-				<td><input type="text" class="form-control" ng-model="animeFilters.time" ng-required="true" ng-pattern="/^[0-9]{1,2}$/"/></td>
+				<th class="col-xs-2"><h5>时间</h5></th>
+				<td class="col-xs-10">
+				<div class="input-group">
+					<input type="number" min="1" max="99" class="form-control" ng-model="animeFilters.time" ng-required="true" ng-pattern="/^[0-9]{1,2}$/"/>
+					<span class="input-group-addon">天</span>
+				</div>
+				</td>
 			</tr>
 			<tr>
-				<th>动画</th>
-				<td>
-					<table class="table no-border-table">
+				<th><h5>关键字</h5></th>
+				<td class="no-padding">
+					<table class="table table-condensed no-border-table">
 						<tbody>
 							<tr ng-repeat="rule in animeFilters.rules track by $index">
 								<td>
 									<div class="input-group">
 										<input type="text" class="form-control" ng-model="animeFilters.rules[$index]" placeholder="正则表达式"/>
 										<span class="input-group-btn">
-											<button class="btn btn-default" type="button" ng-click="deleteRule($index)">☓</button>
+											<button class="btn btn-default" type="button" ng-click="deleteRule($index)"><span class="glyphicon glyphicon-remove"></span></button>
 										</span>
 									</div>
 								</td>
@@ -66,11 +71,11 @@
 			</tr>
 		</tbody>
 	</table>
-	<table class="table table-striped table-anime-list">
+	<table class="table table-condensed table-striped table-anime-list">
 		<tbody>
 			<tr ng-repeat="anime in animes">
-				<td class="col-sm-2">{{anime.publishTime}}</td>
-				<td class="col-sm-8">{{anime.title}}</td>
+				<td class="col-xs-3">{{anime.publishTime}}</td>
+				<td class="col-xs-9">{{anime.title}}</td>
 			</tr>
 		</tbody>
 	</table>
