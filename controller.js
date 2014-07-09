@@ -1,4 +1,4 @@
-
+angular.module('myModule', ['ui.bootstrap']);
 
 function MainController($scope, $http) {
 
