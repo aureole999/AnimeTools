@@ -11,7 +11,7 @@
 	var animeLists = [];
 	
 	// 创建界面
-	function showWindow() {
+	function showWindow(openChooseFileDialog) {
 		chrome.app.window.create('index.html', {
 			id: "mainWin",
 			frame: "chrome",
@@ -24,6 +24,7 @@
 			createdWindow.contentWindow.saveSettings = saveSettings;
 			createdWindow.contentWindow.updateAnimeList = updateAnimeList;
 			createdWindow.contentWindow.setSavedEntry = setSavedEntry;
+			createdWindow.contentWindow.openChooseFileDialog = openChooseFileDialog;
 			createdWindow.onClosed.addListener(function(){saveSettings();});
 		});
 	};
@@ -66,7 +67,15 @@
 			if (value && value.savedEntry) {
 				savedEntry = value.savedEntry;
 			}
-			
+			if (savedEntry) {
+				chrome.fileSystem.isRestorable(savedEntry, function(success) {
+					if (!success) {
+						showWindow(true);
+					}
+				});
+			} else {
+				showWindow(true);
+			}
 			console.log("Loaded Settings");
 			console.log(value);
 		});
@@ -275,9 +284,7 @@
 				if (success) {
 					chrome.fileSystem.restoreEntry(savedEntry, writeToXMLFile);
 				} else {
-					chrome.fileSystem.chooseEntry({type: "saveFile", suggestedName: "animeList.xml"}, function (writableFileEntry) {
-						savedEntry = chrome.fileSystem.retainEntry(writableFileEntry);
-					});
+					showWindow(true);
 				}
 			});
 		} else {
@@ -289,6 +296,8 @@
 		}
 
 	};
+	
+
 
 
 })();

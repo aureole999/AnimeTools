@@ -38,6 +38,10 @@ function MainController($scope, $http) {
 			setSavedEntry(chrome.fileSystem.retainEntry(writableFileEntry));
 		});
 	};
+	
+	if (openChooseFileDialog) {
+		$scope.selectStoragePath();
+	}
 }
 
 
